@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.write("지도test")
+st.write("지도test!!!")
 
 html_code = """
 <!DOCTYPE html>
