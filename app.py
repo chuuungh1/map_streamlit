@@ -91,6 +91,31 @@ var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 // 장소 검색 객체를 생성합니다
 var ps = new kakao.maps.services.Places();  
 
+        // 장소 검색 함수
+        function searchPlaces(lat, lon, radius, categoryCode) {
+            var apiKey = "6c1cbbc51f7ba2ed462ab5b62d3a3746";
+            var url = "https://dapi.kakao.com/v2/local/search/category.json";
+
+            $.ajax({
+                method: "GET",
+                url: url,
+                data: {
+                    category_group_code: categoryCode,
+                    x: lon,
+                    y: lat,
+                    radius: radius
+                },
+                headers: { 
+                    Authorization: "KakaoAK " + apiKey 
+                }
+            })
+            .done(function (msg) {
+                displayPlaces(msg.documents);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("API 호출 실패: " + textStatus, errorThrown);
+            });
+        }
 // 클릭 이벤트 등록
 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     // 클릭한 위치의 좌표
