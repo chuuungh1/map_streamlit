@@ -58,7 +58,7 @@ html_code = """
     <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
-                <form onsubmit="searchPlacesByKeyword(); return false;">
+               <form onsubmit="searchPlaces(); return false;">
                     키워드 : <input type="text" value="맛집" id="keyword" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
