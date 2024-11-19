@@ -284,5 +284,3 @@ function removeAllChildNods(el) {
 # HTML 표시
 st.components.v1.html(html_code, height=800)
 
-You're receiving notifications because you're subscribed to this thread.
-Copied! 
