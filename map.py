@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.write("깃허브 + 스트림릿")
+st.write("깃허브 + 스트림릿11")
 
 html_code = """
 <!DOCTYPE html>
