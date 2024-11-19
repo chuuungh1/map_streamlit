@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.write("카카오 지도와 장소 검색_")
+st.write("카카오 지도와 장소 검색")
 
 html_code = """
 <!DOCTYPE html>
@@ -106,9 +106,7 @@ html_code = """
     });
 
     // Kakao Maps SDK가 로드된 후에 지도 초기화
-    kakao.maps.load(function() {
-        initMap(); // 지도 초기화
-    });
+    kakao.maps.load(initMap); // SDK가 로드된 후 initMap 호출
 </script>
 </body>
 </html>
