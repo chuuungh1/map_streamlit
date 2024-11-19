@@ -45,6 +45,7 @@ html_code = """
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 </style>
 </head>
 <body>
