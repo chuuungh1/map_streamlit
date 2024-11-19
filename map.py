@@ -27,23 +27,22 @@ html_code = """
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=393132b4dfde1b54fc18b3bacc06eb3f&libraries=services"></script>
 
 <script>
-        // 카카오 맵 API 로드 완료 후 초기화
-        $(document).ready(function() {
-            // 지도와 마커 관련 변수
-            var map;
-            var markers = [];
+    // 카카오 맵 API 로드 완료 후 초기화
+    kakao.maps.load(function() {
+        // 지도와 마커 관련 변수
+        var map;
+        var markers = [];
 
-            // 카카오 지도 초기화
-            function initMap() {
-                var mapContainer = document.getElementById('map');
-                var mapOption = {
-                    center: new kakao.maps.LatLng(37.5665, 126.978), // 서울 시청
-                    level: 3
-                };
+        // 카카오 지도 초기화
+        function initMap() {
+            var mapContainer = document.getElementById('map');
+            var mapOption = {
+                center: new kakao.maps.LatLng(37.5665, 126.978), // 서울 시청
+                level: 3
+            };
 
-                map = new kakao.maps.Map(mapContainer, mapOption);
-            }
-
+            map = new kakao.maps.Map(mapContainer, mapOption);
+        }
             // 장소 검색 함수
             function searchPlaces(lat, lon, radius, categoryCode) {
                 var apiKey = "6c1cbbc51f7ba2ed462ab5b62d3a3746";
