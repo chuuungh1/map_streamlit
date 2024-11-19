@@ -105,8 +105,10 @@ html_code = """
         searchPlaces(); // 키워드로 장소 검색 호출
     });
 
-    // Kakao Maps SDK가 로드된 후에 지도 초기화
-    kakao.maps.load(initMap); // SDK가 로드된 후 initMap 호출
+    // Kakao Maps SDK 로드 후 initMap 호출
+    kakao.maps.load(function() {
+        initMap(); // 지도 초기화
+    });
 </script>
 </body>
 </html>
