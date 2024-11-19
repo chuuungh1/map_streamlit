@@ -87,6 +87,45 @@ var ps = new kakao.maps.services.Places();
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
+// map 생성 코드 바로 아래에 추가
+// 장소 검색 객체를 생성합니다
+var ps = new kakao.maps.services.Places();  
+
+// 클릭 이벤트 등록
+kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+    // 클릭한 위치의 좌표
+    var latlng = mouseEvent.latLng;
+    
+    // 좌표를 주소로 변환
+    var geocoder = new kakao.maps.services.Geocoder();
+    
+    geocoder.coord2Address(latlng.getLng(), latlng.getLat(), function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            var addr = result[0].address.address_name;
+            
+            // 건물 정보 검색
+            ps.keywordSearch(addr, function(data, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    var place = data[0];
+                    
+                    // 인포윈도우에 표시할 내용
+                    var content = '<div style="padding:5px;width:250px;">' +
+                                '<strong>' + (place.place_name || '건물명 없음') + '</strong><br>' +
+                                '주소: ' + addr + '<br>' +
+                                (place.phone ? '전화번호: ' + place.phone + '<br>' : '') +
+                                (place.category_name ? '카테고리: ' + place.category_name : '') +
+                                '</div>';
+                    
+                    // 인포윈도우 표시
+                    infowindow.setContent(content);
+                    infowindow.setPosition(latlng);
+                    infowindow.open(map);
+                }
+            });
+        }
+    });
+});
+
 // 키워드로 장소를 검색합니다
 searchPlaces();
 
