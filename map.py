@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.write("카카오 지도와 장소 검색1")
+st.write("카카오 지도와 장소 검색_")
 
 html_code = """
 <!DOCTYPE html>
@@ -9,7 +9,6 @@ html_code = """
     <meta charset="utf-8">
     <title>카카오 지도와 장소 검색</title>
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://code.jquery.com https://dapi.kakao.com 'unsafe-inline'; connect-src 'self' https://dapi.kakao.com; style-src 'self' 'unsafe-inline';">
-    <style>
     <style>
         #map { width: 100%; height: 500px; }
         #placesList { list-style: none; padding: 0; }
@@ -106,8 +105,8 @@ html_code = """
         searchPlaces(); // 키워드로 장소 검색 호출
     });
 
-    // 페이지 로드 시 지도 초기화
-    $(document).ready(function() {
+    // Kakao Maps SDK가 로드된 후에 지도 초기화
+    kakao.maps.load(function() {
         initMap(); // 지도 초기화
     });
 </script>
