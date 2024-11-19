@@ -8,7 +8,8 @@ html_code = """
 <head>
     <meta charset="utf-8">
     <title>카카오 지도와 장소 검색</title>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://code.jquery.com https://dapi.kakao.com 'unsafe-inline'; connect-src 'self' https://dapi.kakao.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://code.jquery.com https://dapi.kakao.com 'unsafe-inline'; connect-src 'self' https://dapi.kakao.com; style-src 'self' 'unsafe-inline';">
+    <style>
     <style>
         #map { width: 100%; height: 500px; }
         #placesList { list-style: none; padding: 0; }
