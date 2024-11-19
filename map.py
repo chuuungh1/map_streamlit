@@ -117,5 +117,5 @@ html_code = """
 """
 
 # HTML 표시
-st.components.v1.html(html_code, height=800)
+st.components.v1.html(html_code, height=1000)
 
