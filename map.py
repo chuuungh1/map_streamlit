@@ -23,10 +23,9 @@ html_code = """
     <ul id="placesList"></ul>
     <div id="map"></div>
 
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=393132b4dfde1b54fc18b3bacc06eb3f&libraries=services"></script>
 
-<script>
     // 카카오 맵 API 로드 완료 후 초기화
     kakao.maps.load(function() {
         // 지도와 마커 관련 변수
