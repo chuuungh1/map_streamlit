@@ -48,6 +48,8 @@ html_code = """
     #pagination .on {font-weight: bold; cursor: default;color:#777;}
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=393132b4dfde1b54fc18b3bacc06eb3f&libraries=services"></script>
+<script>
 </head>
 <body>
 <div class="map_wrap">
@@ -68,8 +70,7 @@ html_code = """
     </div>
 </div>
 
-<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=393132b4dfde1b54fc18b3bacc06eb3f&libraries=services"></script>
-<script>
+
 // 마커를 담을 배열입니다
 var markers = [];
 
