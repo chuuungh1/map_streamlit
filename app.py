@@ -151,11 +151,35 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     });
 });
 
+function searchPlaces(lat, lon, radius, categoryCode) {
+    var apiKey = "6c1cbbc51f7ba2ed462ab5b62d3a3746"; // 여기에 실제 API 키를 넣으세요
+    var url = "https://dapi.kakao.com/v2/local/search/category.json";
+
+    $.ajax({
+        method: "GET",
+        url: url,
+        data: {
+            category_group_code: categoryCode,
+            x: lon,
+            y: lat,
+            radius: radius
+        },
+        headers: { 
+            Authorization: "KakaoAK " + apiKey 
+        }
+    })
+    .done(function (msg) {
+        displayPlaces(msg.documents);
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+        console.error("API 호출 실패: " + textStatus, errorThrown);
+    });
+}
 // 키워드로 장소를 검색합니다
 searchPlaces();
 
 // 키워드 검색을 요청하는 함수입니다
-function searchPlaces() {
+function searchPlacesByKeyword() {
     var keyword = document.getElementById('keyword').value;
 
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
