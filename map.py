@@ -1,30 +1,32 @@
 import streamlit as st
 
-st.write("깃허브 + 스트림릿")
+st.write("깃허브 + 스트림릿_구현 되는 틀")
 
 html_code = """
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://dapi.kakao.com https://code.jquery.com; style-src 'unsafe-inline'; script-src 'unsafe-inline' 'self' https://dapi.kakao.com https://code.jquery.com;">
-    <title>카카오 지도와 장소 검색</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=393132b4dfde1b54fc18b3bacc06eb3f&libraries=services"></script>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>되는지 안되는지 확인</title>
+    
     <style>
-        #map { width: 100%; height: 800px; }
-        #placesList { list-style: none; padding: 0; }
-        #placesList li { margin: 5px 0; }
+     #map { width: 100%; height: 800px; }
+     #placesList { list-style: none; padding: 0; }
+     #placesList li { margin: 5px 0; }
     </style>
 </head>
 <body>
-    <h1>카카오 지도와 장소 검색</h1>
+ <h1>카카오 지도와 장소 검색</h1>
     <input type="text" id="keyword" placeholder="검색할 장소 입력" />
     <button id="searchButton">장소 검색</button>
     <ul id="placesList"></ul>
     <div id="map"></div>
 
-    <script>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=393132b4dfde1b54fc18b3bacc06eb3f&libraries=services"></script>
+
+<script>
         // 카카오 맵 API 로드 완료 후 초기화
         $(document).ready(function() {
             // 지도와 마커 관련 변수
@@ -114,8 +116,8 @@ html_code = """
     </script>
 </body>
 </html>
+
 """
 
 # HTML 표시
-st.components.v1.html(html_code, height=1000)
-
+st.components.v1.html(html_code, height=800)
