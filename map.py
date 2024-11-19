@@ -7,7 +7,7 @@ html_code = """
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://dapi.kakao.com https://code.jquery.com">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://dapi.kakao.com https://code.jquery.com; style-src 'unsafe-inline'; script-src 'unsafe-inline' 'self' https://dapi.kakao.com https://code.jquery.com;">
     <title>카카오 지도와 장소 검색</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=393132b4dfde1b54fc18b3bacc06eb3f&libraries=services"></script>
