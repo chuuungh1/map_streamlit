@@ -11,6 +11,15 @@ html_code = """
     <title>카카오 지도와 장소 검색</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=393132b4dfde1b54fc18b3bacc06eb3f&libraries=services"></script>
+    <script>
+function initKakaoMap() {
+    // 카카오 맵 초기화 코드
+    var map = new kakao.maps.Map(document.getElementById('map'), {
+        center: new kakao.maps.LatLng(37.5665, 126.978),
+        level: 3
+    });
+}
+</script>
     <style>
         #map { width: 100%; height: 500px; }
         #placesList { list-style: none; padding: 0; }
