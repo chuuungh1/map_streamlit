@@ -9,13 +9,7 @@ html_code = """
 <head>
     <meta charset="utf-8">
     <title>카카오 지도와 장소 검색</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="dapi.kakao.com/v2/maps/sdk.js?appkey=393132b4dfde1b54fc18b3bacc06eb3f&libraries=services"></script> <!-- 여기에 실제 API 키를 넣으세요 -->
-    <style>
-        #map { width: 100%; height: 500px; }
-        #placesList { list-style: none; padding: 0; }
-        #placesList li { margin: 5px 0; }
-    </style>
+
 </head>
 <body>
 
@@ -24,6 +18,14 @@ html_code = """
     <button id="searchButton">장소 검색</button>
     <ul id="placesList"></ul>
     <div id="map"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="dapi.kakao.com/v2/maps/sdk.js?appkey=393132b4dfde1b54fc18b3bacc06eb3f&libraries=services"></script> <!-- 여기에 실제 API 키를 넣으세요 -->
+    <style>
+        #map { width: 100%; height: 500px; }
+        #placesList { list-style: none; padding: 0; }
+        #placesList li { margin: 5px 0; }
+    </style>
 
 
     <script>
