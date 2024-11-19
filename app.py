@@ -1,49 +1,4 @@
-Skip to content
-Navigation Menu
-chuuungh1
-/
-map_streamlit
 
-Type / to search
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-Commit 02a9a7d
-Preview
-Give feedback
-chuuungh1
-chuuungh1
-authored
-3 hours ago
-·
-·
-Verified
-Update app.py
-main
-1 parent 
-3a53b98
- commit 
-02a9a7d
-File tree
-Filter files…
-app.py
-1 file changed
-+2
--2
-lines changed
-Search within code
- 
-‎app.py
-+2
--2
-Original file line number	Diff line number	Diff line change
-@@ -1,325 +1,325 @@
 import streamlit as st
 
 st.write("지도test111122")
@@ -101,7 +56,7 @@ html_code = """
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> 
+          
                     키워드 : <input type="text" value="맛집" id="keyword" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
@@ -328,11 +283,6 @@ function removeAllChildNods(el) {
 
 # HTML 표시
 st.components.v1.html(html_code, height=800)
-st.components.v1.html(html_code, height=800)
-0 commit comments
-Comments
-0
- (0)
-Comment
+
 You're receiving notifications because you're subscribed to this thread.
 Copied! 
