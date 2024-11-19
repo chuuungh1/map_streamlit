@@ -1,3 +1,8 @@
+import streamlit as st
+
+st.write("깃허브 + 스트림릿")
+
+html_code = """
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,3 +114,8 @@
     </script>
 </body>
 </html>
+"""
+
+# HTML 표시
+st.components.v1.html(html_code, height=800)
+
