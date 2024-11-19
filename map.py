@@ -8,7 +8,7 @@ html_code = """
 <head>
     <meta charset="utf-8">
     <title>카카오 지도와 장소 검색</title>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://code.jquery.com https://dapi.kakao.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://code.jquery.com https://dapi.kakao.com 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=393132b4dfde1b54fc18b3bacc06eb3f&libraries=services"></script> <!-- 여기에 실제 API 키를 넣으세요 -->
     <style>
