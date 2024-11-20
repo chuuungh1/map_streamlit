@@ -1,122 +1,70 @@
 import streamlit as st
+import folium
+import requests
+from streamlit_folium import st_folium
 
-st.write("깃허브 + 스트림릿_구현 되는 틀")
-
-html_code = """
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>되는지 안되는지 확인</title>
-    
-    <style>
-     #map { width: 100%; height: 800px; }
-     #placesList { list-style: none; padding: 0; }
-     #placesList li { margin: 5px 0; }
-    </style>
-</head>
-<body>
-
- <h1>카카오 지도와 장소 검색</h1>
-    <input type="text" id="keyword" placeholder="검색할 장소 입력" />
-    <button id="searchButton">장소 검색</button>
-    <ul id="placesList"></ul>
-    <div id="map"></div>
+# 카카오 API 키 설정 (여기에 발급받은 카카오 API 키를 입력하세요)
+KAKAO_API_KEY = "393132b4dfde1b54fc18b3bacc06eb3f"  # 여기에 카카오 API 키를 입력
 
 
-    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=393132b4dfde1b54fc18b3bacc06eb3f&libraries=services"></script>
+# 카카오맵 API를 사용하여 위치 검색
+def search_location(query):
+    url = f"https://dapi.kakao.com/v2/local/search/keyword.json"
+    headers = {
+        "Authorization": f"KakaoAK 6c1cbbc51f7ba2ed462ab5b62d3a3746"  # API 키를 헤더에 포함
+    }
+    params = {
+        "query": query,  # 검색할 장소 이름
+        "category_group_code": "SW8,FD6,CE7"  # 카테고리 코드 (예: 음식점, 카페 등)
+    }
 
-    // 카카오 맵 API 로드 완료 후 초기화
-    kakao.maps.load(function() {
-        // 지도와 마커 관련 변수
-        var map;
-        var markers = [];
+    response = requests.get(url, headers=headers, params=params)
 
-        // 카카오 지도 초기화
-        function initMap() {
-            var mapContainer = document.getElementById('map');
-            var mapOption = {
-                center: new kakao.maps.LatLng(37.5665, 126.978), // 서울 시청
-                level: 3
-            };
+    if response.status_code == 200:
+        data = response.json()
+        documents = data.get("documents", [])
+        if documents:
+            return documents
+        else:
+            st.error("검색 결과가 없습니다.")
+            return None
+    else:
+        st.error(f"API 요청 오류: {response.status_code}")
+        return None
 
-            map = new kakao.maps.Map(mapContainer, mapOption);
-        }
 
-        // 장소 검색 함수
-        function searchPlaces(lat, lon, radius, categoryCode) {
-            var apiKey = "6c1cbbc51f7ba2ed462ab5b62d3a3746";
-            var url = "https://dapi.kakao.com/v2/local/search/category.json";
+# 위치 검색 및 folium 지도 표시
+def display_location_on_map():
+    query = st.text_input("검색할 장소를 입력하세요:", "영남대역")  # 기본값: 영남대역
+    if query:
+        # 카카오 API로 장소 검색
+        results = search_location(query)
+        if results:
+            # 지역 정보 추출
+            locations = [(place["place_name"], place["address_name"], float(place["y"]), float(place["x"]))
+                         for place in results]
+            
+            # 지역 이름 선택
+            selected_place = st.selectbox("검색 결과를 선택하세요:", [name for name, _, _, _ in locations])
 
-            $.ajax({
-                method: "GET",
-                url: url,
-                data: {
-                    category_group_code: categoryCode,
-                    x: lon,
-                    y: lat,
-                    radius: radius
-                },
-                headers: { 
-                    Authorization: "KakaoAK " + apiKey 
-                }
-            })
-            .done(function (msg) {
-                displayPlaces(msg.documents);
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("API 호출 실패: " + textStatus, errorThrown);
-            });
-        }
+            # 선택된 장소의 정보 찾기
+            for place in locations:
+                if place[0] == selected_place:
+                    name, address, latitude, longitude = place
+                    st.write(f"장소 이름: {name}")
+                    st.write(f"주소: {address}")
 
-        // 장소를 지도에 마커로 표시하는 함수
-        function displayPlaces(places) {
-            removeMarkers();
-            var placesList = $("#placesList");
-            placesList.empty();
+                    # folium 지도 생성
+                    m = folium.Map(location=[latitude, longitude], zoom_start=17)
+                    folium.Marker([latitude, longitude], popsup=f"{name}\n{address}",
+                                  icon=folium.Icon(color='blue', icon='star')).add_to(m)
 
-            places.forEach(function(place) {
-                var position = new kakao.maps.LatLng(place.y, place.x);
-                addMarker(position);
-                placesList.append("<li>" + place.place_name + " - " + place.address_name + "</li>");
-            });
-        }
+                    # Streamlit에서 folium 지도 표시
+                    st_folium(m, width=725)
 
-        // 마커를 지도에 추가하는 함수
-        function addMarker(position) {
-            var marker = new kakao.maps.Marker({
-                position: position
-            });
-            marker.setMap(map);
-            markers.push(marker);
-        }
 
-        // 이전 마커 제거
-        function removeMarkers() {
-            markers.forEach(function(marker) {
-                marker.setMap(null);
-            });
-            markers = [];
-        }
+# Streamlit 앱 실행
+st.title("카카오맵 위치 검색과 Folium 지도")
 
-        // 버튼 클릭 시 장소 검색
-        $("#searchButton").click(function() {
-            var lat = 37.5665;
-            var lon = 126.978;
-            var radius = 1000;
-            var categoryCode = "FD6";
-
-            searchPlaces(lat, lon, radius, categoryCode);
-        });
-
-        // 페이지 로드 시 지도 초기화
-        initMap();
-    });
-</script>
-</body>
-</html>
-"""
-
-# HTML 표시
-st.components.v1.html(html_code, height=800)
+# 위치 검색 및 지도 표시
+display_location_on_map()
