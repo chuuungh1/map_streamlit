@@ -58,12 +58,12 @@ def display_location_on_map():
 
                     
                     # folium 지도 생성
-                    m = folium.Map(location=[latitude, longitude], zoom_start=16)
+                    m = folium.Map(location=[latitude, longitude], zoom_start=17)
                     folium.Marker([latitude, longitude], tooltip=f"{name}\n{address}",
                                   icon=folium.Icon(color='blue', icon='star', icon_color='white')).add_to(m)
                     
                     
-                    st_folium(m, width=800, height= 400, zoom=16)# Streamlit에서 folium 지도 표시
+                    st_folium(m, width=800, height= 400)# Streamlit에서 folium 지도 표시
                     col3, col4 = st.columns([4, 1])
                     with col3:
                      st.write(f"장소 이름: {name}")
