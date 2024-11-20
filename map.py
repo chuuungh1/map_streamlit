@@ -35,7 +35,7 @@ def search_location(query):
 
 # 위치 검색 및 folium 지도 표시
 def display_location_on_map():
-    col1, col2 = st.columns([4,1])
+    col1, col2 = st.columns([8,1])
     with col1:
            query = st.text_input("검색할 장소를 입력하세요:", "영남대역")  # 기본값: 영남대역
     with col2:
