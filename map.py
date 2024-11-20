@@ -35,36 +35,47 @@ def search_location(query):
 
 # 위치 검색 및 folium 지도 표시
 def display_location_on_map():
-    query = st.text_input("검색할 장소를 입력하세요:", "영남대역")  # 기본값: 영남대역
+    col1, col2 = st.columns([4,1])
+    with col1:
+           query = st.text_input("검색할 장소를 입력하세요:", "영남대역")  # 기본값: 영남대역
+    with col2:
+       search_button = st.button("검색")
     if query:
         # 카카오 API로 장소 검색
-        results = search_location(query)
-        if results:
+             results = search_location(query)
+    if results:
             # 지역 정보 추출
-            locations = [(place["place_name"], place["address_name"], float(place["y"]), float(place["x"]))
+        locations = [(place["place_name"], place["address_name"], float(place["y"]), float(place["x"]))
                          for place in results]
             
             # 지역 이름 선택
-            selected_place = st.selectbox("검색 결과를 선택하세요:", [name for name, _, _, _ in locations])
+        selected_place = st.selectbox("검색 결과를 선택하세요:", [name for name, _, _, _ in locations])
 
             # 선택된 장소의 정보 찾기
-            for place in locations:
+        for place in locations:
                 if place[0] == selected_place:
                     name, address, latitude, longitude = place
-                    st.write(f"장소 이름: {name}")
-                    st.write(f"주소: {address}")
 
+                    
                     # folium 지도 생성
-                    m = folium.Map(location=[latitude, longitude], zoom_start=17)
-                    folium.Marker([latitude, longitude], popsup=f"{name}\n{address}",
-                                  icon=folium.Icon(color='blue', icon='star')).add_to(m)
+                    m = folium.Map(location=[latitude, longitude], zoom_start=16)
+                    folium.Marker([latitude, longitude], tooltip=f"{name}\n{address}",
+                                  icon=folium.Icon(color='blue', icon='star', icon_color='white')).add_to(m)
+                    
+                    
+                    st_folium(m, width=800, height= 400, zoom=16)# Streamlit에서 folium 지도 표시
+                    col3, col4 = st.columns([4, 1])
+                    with col3:
+                     st.write(f"장소 이름: {name}")
+                     st.write(f"주소: {address}")
+                    with col4:
+                     if st.button("확인", key=f"confirm_{name}_{latitude}_{longitude}"):
+                         st.write(f"장소 이름: {name}")
 
-                    # Streamlit에서 folium 지도 표시
-                    st_folium(m, width=725)
-
+                
 
 # Streamlit 앱 실행
-st.title("카카오맵 위치 검색과 Folium 지도")
+st.title("맛집 검색")
 
 # 위치 검색 및 지도 표시
 display_location_on_map()
